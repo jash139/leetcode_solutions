@@ -1,44 +1,52 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-int strStr(string haystack, string needle) {
-    int index = -1;
-    int n = haystack.length();
-    int m = needle.length();
-    if (m > n) {
-        return index;
-    }
-    if (m == 0) {
-        return 0;
-    }
-    for(int i = 0; i < n; ++i) {
-        if (haystack[i] == needle[0]) {
-            int j;
-            for(j = 0; j < m; ++j) {
-                if (haystack[i + j] == needle[j]) {
-                    continue;
-                } else {
-                    break;
-                }
-            }
-            if (j == m) {
-                index = i;
-                break;
+class Solution {
+public:
+    vector<int> buildPattern(string substr) {
+        vector<int> pattern(substr.length(), - 1);
+        
+        int j = 0;
+        int i = 1;
+        
+        while (i < substr.length()) {
+            if (substr[i] == substr[j]) {
+                pattern[i] = j;
+                i++;
+                j++;
+            } else if (j > 0) {
+                j = pattern[j - 1] + 1;
+            } else {
+                i++;
             }
         }
+        
+        return pattern;
     }
-    return index;
-}
-
-int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
-	
-	string haystack, needle;
-	getline(cin, haystack);
-	getline(cin, needle);
-	cout<<strStr(haystack, needle);
-	
-	return 0;
-}
+    
+    int doesMatch(string str, string substr, vector<int> pattern) {
+        int i = 0;
+        int j = 0;
+        
+        while (i + substr.length() - j <= str.length()) {
+            if (str[i] == substr[j]) {
+                if (j == substr.length() - 1) {
+                    return i - substr.length() + 1;
+                }
+                i++;
+                j++;
+            } else if (j > 0) {
+                j = pattern[j - 1] + 1;
+            } else {
+                i++;
+            }
+        }
+        
+        return -1;
+    }
+    
+    // KMP Algorithm
+    int strStr(string str, string substr) {
+        if (str.length() == 0 and substr.length() == 0) return 0;
+        else if (substr.length() == 0) return 0;
+        vector<int> pattern = buildPattern(substr);
+        return doesMatch(str, substr, pattern);
+    }
+};
