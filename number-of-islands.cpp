@@ -1,9 +1,7 @@
 class Solution {
 public:
     void explore(vector<vector<char>> &grid, int i, int j) {
-        if (i < 0 or i >= grid.size() or j < 0 or j >= grid[0].size()) return;
-        
-        if (grid[i][j] == '0') return;
+        if (i < 0 or i >= grid.size() or j < 0 or j >= grid[0].size() or grid[i][j] != '1') return;
         
         grid[i][j] = '0';
         
