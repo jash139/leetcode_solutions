@@ -1,5 +1,11 @@
 class Solution {
 public:
+    // Put numbers which are within 0 and nums.size()
+    // in their correct position
+    // In second iteration check first number which is
+    // not in its correct position
+    // That is the smallest missing positive number
+    
     int firstMissingPositive(vector<int>& nums) {
         int missingNum = 1;
         for (int idx = 0; idx < nums.size(); ++idx) {
