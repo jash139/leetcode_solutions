@@ -5,9 +5,7 @@ public:
         while (n) {
             if (n % 2)
                 result = n > 0 ? result * x : result / x;
-            cout<<result<<" ";
             x = x * x;
-            cout<<result<<" ";
             n /= 2;
         }
         return result;
