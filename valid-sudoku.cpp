@@ -43,7 +43,7 @@ public:
                 int rowToCheck = subgridRowStart + rowIdx;
                 int colToCheck = subgridColStart + colIdx;
                 
-                if (rowToCheck == row or colToCheck == col)
+                if (rowToCheck == row and colToCheck == col)
                     continue;
                 
                 if (board[rowToCheck][colToCheck] == value)
