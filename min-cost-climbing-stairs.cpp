@@ -1,35 +1,30 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-vector<int> memo(1001, -1);
-
-int minCost(int n, vector<int>& cost) {
-    if (memo[n] > -1) return memo[n];
-    if (n <= 1) return 0;
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        vector<int> minCost(cost.size(), 0);
+        minCost[0] = cost[0];
+        minCost[1] = cost[1];
+        
+        for (int i = 2; i < cost.size(); ++i) {
+            minCost[i] = cost[i] + min(minCost[i - 1], minCost[i - 2]);
+        }
+        
+        return min(minCost[cost.size() - 2], minCost[cost.size() - 1]);
+    }
     
-    int mCost = min(cost[n - 1] + minCost(n - 1, cost), cost[n - 2] + minCost(n - 2, cost));
-    memo[n] = mCost;
-    return mCost;
-}
-
-int minCostClimbingStairs(vector<int>& cost) {
-    return minCost(cost.size(), cost);
-}
-
-int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
-	
-	int n;
-	cin>>n;
-	vector<int> cost;
-	for(int i = 0; i < n; ++i) {
-		int t;
-		cin>>t;
-		cost.push_back(t);
-	}
-	cout<<minCostClimbingStairs(cost);
-	
-	return 0;
-}
+------------------------------------------------------------------------------
+    
+//    O(1) Space
+    int minCostClimbingStairs(vector<int>& cost) {
+        int first = cost[0];
+        int second = cost[1];
+        
+        for (int i = 2; i < cost.size(); ++i) {
+            int currCost = cost[i] + min(first, second);
+            first = second;
+            second = currCost;
+        }
+        
+        return min(first, second);
+    }
+};
