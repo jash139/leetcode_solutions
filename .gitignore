@@ -34,3 +34,7 @@
 *.dev
 *.layout
 *.win
+
+# Python files
+
+.idea/
